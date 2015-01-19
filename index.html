@@ -1,39 +1,52 @@
- <!doctype html>
-        <html lang="en" ng-app='feedReader'>
-        <head>
-            <meta charset="UTF-8">
-            <title>Nivedita Muthusubramanian </title>
-            <!-- All CSS Files -->
-            <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-            <link rel="stylesheet" type="text/css" href="css/style.css"/>
-            <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
-        <link href='http://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet' type='text/css'>
-     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
-            <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-        <script src="js/smooth-scroll.js"></script>
-        <script src="js/bootstrap.js"></script>
-     
-       
+     <!doctype html>
+            <html lang="en" ng-app='feedReader'>
+            <head>
+                <meta charset="UTF-8">
+                <title>Nivedita Muthusubramanian </title>
+                <!-- All CSS Files -->
+                <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+                <link rel="stylesheet" type="text/css" href="css/style.css"/>
+                <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+            <link href='http://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet' type='text/css'>
+         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+                <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+            <script src="js/smooth-scroll.js"></script>
+            <script src="js/bootstrap.js"></script>
 
-        </head>
-        <body ng-controller="FeedParser " >
-             <div class="container">
-        <div ng-repeat = "feed in feeds">
-          
-                <h2><a href="{{ feed.link }}"> {{feed.title}} </a> </h2>
-            <div class="row">
-         <div ng-repeat="item in feed.entries" >
-            
-                <div class="col-md-4">
-<h4>		<a href="{{item.link}}" target="_blank">{{item.title}}</a> </h4>
-        <p> {{item.contentSnippet}} </p>
-        
-	</div>
-            </div>
+
+
+            </head>
+            <body ng-controller="FeedParser " >
+                  <div class=" search left">
+                       <input type="text" ng-model="input.value">
+
+                      <button ng-click="add()"><i class="fa fa-plus"></i></button> <br/>
+               <select ng-model="query.title">
+    <option value="">All feeds</option>
+    <option ng-repeat="feed in sourcefeeds" value="{{feed.title}}">{{feed.title}}</option>
+</select>
+                    </div>
+                <div class="feed">
+                 <div class="container">
+            <div ng-repeat = "feed in feeds | filter: query  ">
+
+                    <h2><a href="{{ feed.link }}"> {{feed.title}} </a> </h2>
+                <div class="row">
+             <div ng-repeat="item in feed.entries" >
+
+                    <div class="col-md-5 card">
+    <h4>		<a href="{{item.link}}" target="_blank">{{item.title}}</a> </h4>
+                        <h5> {{ item.publishedDate | date: 'short' }} </h5>
+            <p> {{ item.contentSnippet | limitTo: 20 }} </p>
+
+        </div>
                 </div>
-            </div>
-                 </div>
-        </body>
-   <script src="js/app.js"></script>
-</html>
+                    </div>
+                </div>
+                     </div>
+                    </div>
+
+            </body>
+       <script src="js/app.js"></script>
+    </html>
