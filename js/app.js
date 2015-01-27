@@ -1,4 +1,4 @@
-    var feeds = [];
+ var feeds = [];
     var sourcefeeds = [];
     angular.module('feedReader',['ngResource'])
 
@@ -34,14 +34,17 @@
 
 
             .controller('FeedParser',function($scope,FeedList) {
-
-               $scope.feeds = FeedList.get();
-                console.log($scope.feeds);
+                $scope.sourcefeeds = [
+                        {title: 'NDTV', url: 'http://feeds.feedburner.com/NdtvNews-TopStories?format=xml'},
+                        {title: 'TECHCRUNCH', url : 'http://feeds.feedburner.com/techcrunch/startups?format=xml'},
+                    ];
+               $scope.feeds =  FeedList.get();
+      
                 $scope.$on('FeedList',function(event,data)
                            {
                                $scope.feeds = data;
                            });    
-                       $scope.sourcefeeds = sourcefeeds;
+                      
   
             }
 
